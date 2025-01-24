@@ -242,7 +242,7 @@ body {
 }
 
 .summary p {
-  display: flex;
+  display: inline-block;
   align-items: center;
   gap: 0.8rem;
 }
