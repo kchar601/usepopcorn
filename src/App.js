@@ -113,10 +113,8 @@ export default function App() {
               setWatched={setWatched}
               setMovieSelected={setSelectedId}
             />
-          ) : watched ? (
-            <Watchedlist watched={watched} setWatched={setWatched} />
           ) : (
-            ""
+            <Watchedlist watched={watched} setWatched={setWatched} />
           )}
         </Movielist>
       </main>
