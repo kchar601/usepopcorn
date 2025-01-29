@@ -113,8 +113,10 @@ export default function App() {
               setWatched={setWatched}
               setMovieSelected={setSelectedId}
             />
-          ) : (
+          ) : watched ? (
             <Watchedlist watched={watched} setWatched={setWatched} />
+          ) : (
+            ""
           )}
         </Movielist>
       </main>
@@ -305,7 +307,7 @@ function Movielist({ movieSelected, setMovieSelected, children }) {
   );
 }
 
-function Watchedlist({ watched = [], setWatched }) {
+function Watchedlist({ watched, setWatched }) {
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
   const avgUserRating = average(watched.map((movie) => movie.userRating));
   const avgRuntime = average(watched.map((movie) => movie.runtime));
