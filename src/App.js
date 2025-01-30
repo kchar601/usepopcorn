@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import StarRating from "./StarRating";
 import { useMovies } from "./useMovies";
 import { useLocalStorageState } from "./useLocalStorageState";
+import { useKey } from "./useKey";
 
 const KEY = "8e01da8";
 
@@ -124,17 +125,7 @@ function MovieDetails({ id, watched, setWatched, setMovieSelected }) {
     [movie.Title]
   );
 
-  useEffect(() => {
-    function callback(e) {
-      if (e.code === "Escape") {
-        setMovieSelected(null);
-      }
-    }
-    document.addEventListener("keydown", callback);
-    return () => {
-      document.removeEventListener("keydown", callback);
-    };
-  }, [setMovieSelected]);
+  useKey("Escape", () => setMovieSelected(null));
 
   function handleAddToList() {
     const numericalValue = movie.Runtime.match(/\d+/);
@@ -221,18 +212,12 @@ function Logo() {
 function Search({ query, setQuery }) {
   const inputEl = useRef(null);
 
-  useEffect(() => {
-    function callback(e) {
-      if (document.activeElement === inputEl.current) return;
+  useKey("Enter", function () {
+    if (document.activeElement === inputEl.current) return;
 
-      if (e.code === "Enter") {
-        inputEl.current.focus();
-        setQuery("");
-      }
-    }
-    document.addEventListener("keydown", callback);
-    return () => document.removeEventListener("keydown", callback);
-  }, [setQuery]);
+    inputEl.current.focus();
+    setQuery("");
+  });
 
   return (
     <input
